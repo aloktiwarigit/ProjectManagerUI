@@ -18,3 +18,90 @@
     </ul>
   </div>
   </div>
+  <form  #myForm="ngForm"  class="well form-horizontal"  >
+    <table class="table table-striped">
+        <tbody>
+           <tr>
+              <td colspan="1">
+                
+                    <fieldset>
+                         <div class="form-group" *ngIf="IsEdit">
+                               <label class="col-md-4 control-label">User Id:</label>
+                               <div class="col-md-8 inputGroupContainer">
+                                  <div class="input-group"><input id="UserId" [(ngModel)]="UserId"  name="UserId"  class="form-control" readonly type="number"></div>
+                               </div>
+                            </div>
+    
+                       <div class="form-group">
+                          <label class="col-md-4 control-label">First Name:</label>
+                          <div class="col-md-8 inputGroupContainer">
+                             <div class="input-group"><input id="FirstName" [(ngModel)]="FirstName"  name="FirstName" placeholder="First Name" class="form-control" maxlength="100" required="true" value="" type="text"></div>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="col-md-4 control-label">Last Name:</label>
+                          <div class="col-md-8 inputGroupContainer">
+                             <div class="input-group"><input id="LastName" [(ngModel)]="LastName"  name="LastName" placeholder="Last Name" class="form-control" maxlength="100" required="true" value="" type="text"></div>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                          <label class="col-md-4 control-label">Employee Id:</label>
+                          <div class="col-md-8 inputGroupContainer">
+                             <div class="input-group"><input id="EmpId" [(ngModel)]="EmpId"  name="EmpId" placeholder="Employee Id" class="form-control" maxlength="30" required="true" value="" type="text"></div>
+                          </div>
+                       </div>
+                                       
+                  <div style="padding:20px" *ngIf="!IsEdit" > <button class="btn btn-primary" (click)="AddNewUser(myForm) " (blur)="LoadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="ResetUserForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="IsEdit"> <button class="btn btn-primary" (click)="UpdateUser() " (blur)="LoadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="ResetUserForm(myForm)" type="button">Reset</button> </div>
+                    </fieldset>
+               
+              </td>
+             
+           </tr>
+        </tbody>
+     </table>
+     <hr>
+    <div class="row">
+       <div class="col-md-6">     
+          <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="SearchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
+      </div>
+      <div class="col-md-2">
+          <label class="control-label" style="padding-right:10px;">Sort By: </label>  
+          <button class="btn btn-secondary"  (click)="FirstNameSort()"  style="padding:6px;">First Name</button> 
+       </div>
+       <div class="col-md-2">
+          <button class="btn btn-secondary"  (click)="LastNameSort()" style="padding:6px;" >Last Name</button>  
+       </div>
+       <div class="col-md-2" >
+          <button class="btn btn-secondary" (click)="IdSort()" >Id</button> 
+       </div>
+      </div>
+    
+    <hr>
+      <table class="table" >
+          <thead>
+              <tr>
+                <th scope="col">User Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Employee Id</th> 
+                <th></th>
+                <th></th>
+    
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor ="let item of list ; trackBy: trackUser" >         
+                  <td>{{item.UserId}}</td>
+                  <td>{{item.FirstName}}</td>
+                  <td>{{item.LastName}}</td>
+                  <td>{{item.EmpId}}</td>
+                 
+                  <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="EditUserBind(item)"  >Edit</button></td>                          
+                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="DeleteUser(item.UserId)" (blur)="LoadUsersGrid()" >Delete</button></td>
+               
+                </tr>
+              </tbody>
+            </table>
+    
+        </form>
