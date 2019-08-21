@@ -6,17 +6,82 @@
       <li class="nav-item">
           <h5><a routerLink="/add-user" class="text-secondary" >Add User</a></h5>
         </li>
-        <li class="nav-item" style="padding-left:21px">
+        <li class="nav-item" style="padding-left:200px">
             <h5><a routerLink="/add-project" class="text-secondary"  >Add Project</a></h5>
           </li>
-    <li class="nav-item" style="padding-left:21px">
+    <li class="nav-item" style="padding-left:200px">
       <h5><a routerLink="/add-task" class="text-secondary" >Add Task</a></h5>
     </li>
-    <li class="nav-item" style="padding-left:21px">
+    <li class="nav-item" style="padding-left:200px">
       <h4><a routerLink="/view-task" routerLinkActive="active" >View Task</a></h4>
     </li>
     </ul>
   </div>
   
   </div>
+
+  <hr>
+<div class="row">
+    <div class="col-md-3">
+                     
+     <input id="txtTaskSearch"  #txtTaskSearch (keyup)="TaskViewSearchFilter(txtTaskSearch.value)" placeholder="Search..."  name="txtTaskSearch"  class="form-control" required="true"   type="text" >                                    
+     </div>
+     <div class="col-md-1">        
+            <label class="control-label" style="padding-right:10px;">Sort Task By: </label>  
+            
+         </div>
+          <div class="col-md-2">        
+         
+            <button class="btn btn-secondary"  (click)="StartDateSort()"  >Start Date</button> 
+         </div>
+         <div class="col-md-2">
+            <button class="btn btn-secondary"  (click)="EndDateSort()" >End Date</button>  
+         </div>
+         <div class="col-md-2" >
+            <button class="btn btn-secondary" (click)="PrioritySort()" >Priority</button> 
+         </div>
+         <div class="col-md-2" >
+                <button class="btn btn-secondary" (click)="TaskCompletedSort()" >Completed</button> 
+             </div>
+        </div>
+  <br>  
+
+  <table class="table" >
+      <thead>
+          <tr>
+            <th scope="col">TaskId</th>
+            <th scope="col">Task</th>
+            <th scope="col">ParentTask</th>
+            <th scope="col">ProjectId</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Start</th>
+            <th scope="col">End</th>
+            <th scope="col">UserId</th>
+            <th></th>     
+            <th></th>
+            <th></th>
+            <th>IsTaskCompleted</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor ="let item of list ; trackBy: trackTask" >         
+              <td>{{item.TaskId}}</td>
+              <td>{{item.TaskDesc}}</td>
+              <td>{{item.ParentId}}</td>
+              <td>{{item.ProjectId}}</td>
+              <td>{{item.Priority}}</td>
+              <td>{{item.StartDate |date:'MM-dd-yyyy'}}</td>
+              <td>{{item.EndDate | date:'MM-dd-yyyy' }}</td>
+              <td>{{item.UserId}}</td>
+              <td style="padding-left:0;padding-right:0;"><a routerLink="/update-task/{{item.TaskId}}"><button class="btn btn-secondary" style="padding:3px" [disabled]=" (item.TaskStatus=='1')"  >Edit</button></a></td> 
+   
+              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="EndTaskFlagchange(item)" (blur)="LoadGridTask()"  class="btn btn-warning">EndTask</button></td>             
+              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="DeleteTask(item.TaskId)" (blur)="LoadGridTask()"   class="btn btn-danger">Delete</button></td>
+              <td>{{(item.TaskStatus=='1')? 'Yes':'No'}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        
 

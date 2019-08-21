@@ -15,88 +15,88 @@ import { ParentTask } from '../Classes/parent-task';
 })
 export class ProjectService {
 
-private _apiUrl = "http://localhost/ProjectManagerAPI/api/";
+private _apiUrl = "http://localhost/ProjectManagerService/";
   constructor(private _http:HttpClient) {
 
    }
 
-GetAllUsers():Observable<User[]>
+getAllUsers():Observable<User[]>
 {
   return  this._http.get<User[]>(this._apiUrl+"Users").pipe(map(x=>x));
 }
-AddNewUser(Item:User):Observable<any>
+addUser(Item:User):Observable<any>
 {
   return this._http.post(this._apiUrl+"User",Item)
   .pipe(map(x=>x));
 }
 
-UpdateUser(UserId :number, Item: User):Observable<any>
+editUser(UserId :number, Item: User):Observable<any>
   {
     return  this._http.put(this._apiUrl+"Users/"+UserId,Item).pipe(map(x=>x));
   }
   
   
-  DeleteUser(UserId :number):Observable<any>
+  deleteUser(UserId :number):Observable<any>
   {
     return  this._http.delete(this._apiUrl+"Users/"+UserId).pipe(map(x=>x));
   }
   
-  GetAllProjects():Observable<Project[]>
+  getAllProjects():Observable<Project[]>
   {
     return  this._http.get<Project[]>(this._apiUrl+"Projects").pipe(map(x=>x));
   }
-  AddNewProjects(Item:Project):Observable<any>
+  addProject(Item:Project):Observable<any>
   {
     return this._http.post(this._apiUrl+"Projects",Item)
     .pipe(map(x=>x));
   }
   
-  UpdateProjects(ProjectId :number, Item: Project):Observable<any>
+  editProject(ProjectId :number, Item: Project):Observable<any>
     {
       return  this._http.put(this._apiUrl+"Projects/"+ProjectId,Item).pipe(map(x=>x));
     }
     
     
-    DeleteProjects(ProjectId :number):Observable<any>
+  deleteProject(ProjectId :number):Observable<any>
     {
       return  this._http.delete(this._apiUrl+"Projects/"+ProjectId).pipe(map(x=>x));
     }
 
-    GetAllParentTask() : Observable<ParentTask[]>
+  getAllParentTask() : Observable<ParentTask[]>
   {
     return  this._http.get<ParentTask[]>(this._apiUrl+"ParentTasks").pipe(map(x=>x));
 
   }
-  AddNewParentTask(Item:ParentTask):Observable<any>
+  addParentTask(Item:ParentTask):Observable<any>
   {
     return this._http.post(this._apiUrl+"ParentTasks",Item)
     .pipe(map(x=>x));
   }
-  GetAllTask() : Observable<Task[]>
+  getAllTask() : Observable<Task[]>
   {
     return  this._http.get<Task[]>(this._apiUrl+"Tasks").pipe(map(x=>x));
 
   }
-  GetTask(TaskId :number) : Observable<Task>
+  getTask(TaskId :number) : Observable<Task>
   {
     return  this._http.get<Task>(this._apiUrl+"Tasks/"+TaskId).pipe(map(x=>x));
 
   }
-  AddNewTask(Item:Task):Observable<any>
+  addTask(Item:Task):Observable<any>
   {
     return this._http.post(this._apiUrl+"Tasks",Item)
     .pipe(map(x=>x));
   }
-  UpdateTask(TaskId :number, Item: Task):Observable<any>
+  editTask(TaskId :number, Item: Task):Observable<any>
   {
     return  this._http.put(this._apiUrl+"Tasks/"+TaskId,Item).pipe(map(x=>x));
   }
   
-  EndTaskFlagUpdate(Item: Task):Observable<any>
+  endTaskUpdateFlag(Item: Task):Observable<any>
   {
     return  this._http.put(this._apiUrl+"Tasks",Item).pipe(map(x=>x));
   }
-  DeleteTask(TaskId :number):Observable<any>
+  deleteTask(TaskId :number):Observable<any>
   {
     return  this._http.delete(this._apiUrl+"Tasks/"+TaskId).pipe(map(x=>x));
   }

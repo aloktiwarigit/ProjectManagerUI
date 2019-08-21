@@ -1,6 +1,6 @@
 export class User {
     UserId:number;
-    FirstName:string;
-    LastName:string;
+    FstName:string;
+    LstName:string;
     EmpId:string;
 }
