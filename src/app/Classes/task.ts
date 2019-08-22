@@ -1,13 +1,13 @@
 export class Task {
     
-    ParentId :number;
-    UserId:number;
-    ProjectId:number;
-    Priority : number;
-    TaskStatus:string;
-    TaskDescription:string;
-    StartDt :string;
-    EndDt: string;
-    TaskId:number;
+    parentId :number;
+    userId:number;
+    projectId:number;
+    priority : number;
+    taskStatus:string;
+    taskDescription:string;
+    startDt :string;
+    endDt: string;
+    taskId:number;
     
 }

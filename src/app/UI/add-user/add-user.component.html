@@ -28,31 +28,31 @@
                          <div class="form-group" *ngIf="IsEdit">
                                <label class="col-md-4 control-label">User Id:</label>
                                <div class="col-md-8 inputGroupContainer">
-                                  <div class="input-group"><input id="UserId" [(ngModel)]="UserId"  name="UserId"  class="form-control" readonly type="number"></div>
+                                  <div class="input-group"><input id="userId" [(ngModel)]="userId"  name="userId"  class="form-control" readonly type="number"></div>
                                </div>
                             </div>
     
                        <div class="form-group">
                           <label class="col-md-4 control-label">First Name:</label>
                           <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="FirstName" [(ngModel)]="FirstName"  name="FirstName" placeholder="First Name" class="form-control" maxlength="100" required="true" value="" type="text"></div>
+                             <div class="input-group"><input id="firstName" [(ngModel)]="firstName"  name="firstName" placeholder="First Name"  required="true" value="" class="form-control" maxlength="100" type="text"></div>
                           </div>
                        </div>
                        <div class="form-group">
                           <label class="col-md-4 control-label">Last Name:</label>
                           <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="LastName" [(ngModel)]="LastName"  name="LastName" placeholder="Last Name" class="form-control" maxlength="100" required="true" value="" type="text"></div>
+                             <div class="input-group"><input id="lastName" [(ngModel)]="lastName"  name="lastName" placeholder="last Name" required="true" value="" class="form-control" maxlength="100"  type="text"></div>
                           </div>
                        </div>
                        <div class="form-group">
                           <label class="col-md-4 control-label">Employee Id:</label>
                           <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="EmpId" [(ngModel)]="EmpId"  name="EmpId" placeholder="Employee Id" class="form-control" maxlength="30" required="true" value="" type="text"></div>
+                             <div class="input-group"><input id="empId" [(ngModel)]="empId"  name="empId" placeholder="Employee Id" required="true" value="" class="form-control" maxlength="30"  type="text"></div>
                           </div>
                        </div>
                                        
-                  <div style="padding:20px" *ngIf="!IsEdit" > <button class="btn btn-primary" (click)="AddNewUser(myForm) " (blur)="LoadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="ResetUserForm(myForm)" type="button">Reset</button> </div>
-                  <div style="padding:20px" *ngIf="IsEdit"> <button class="btn btn-primary" (click)="UpdateUser() " (blur)="LoadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="ResetUserForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="!isEdit" > <button class="btn btn-primary" (click)="addNewUser(myForm) " (blur)="loadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="updateUser() " (blur)="loadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
                     </fieldset>
                
               </td>
@@ -67,13 +67,13 @@
       </div>
       <div class="col-md-2">
           <label class="control-label" style="padding-right:10px;">Sort By: </label>  
-          <button class="btn btn-secondary"  (click)="FirstNameSort()"  style="padding:6px;">First Name</button> 
+          <button class="btn btn-secondary"  (click)="sortByFirstName()"  style="padding:6px;">First Name</button> 
        </div>
        <div class="col-md-2">
-          <button class="btn btn-secondary"  (click)="LastNameSort()" style="padding:6px;" >Last Name</button>  
+          <button class="btn btn-secondary"  (click)="sortByLastName()" style="padding:6px;" >Last Name</button>  
        </div>
        <div class="col-md-2" >
-          <button class="btn btn-secondary" (click)="IdSort()" >Id</button> 
+          <button class="btn btn-secondary" (click)="sortById()" >Id</button> 
        </div>
       </div>
     
@@ -91,14 +91,14 @@
               </tr>
             </thead>
             <tbody>
-                <tr *ngFor ="let item of list ; trackBy: trackUser" >         
+                <tr *ngFor ="let item of list ; trackBy: identifyUser" >         
                   <td>{{item.UserId}}</td>
                   <td>{{item.FirstName}}</td>
                   <td>{{item.LastName}}</td>
                   <td>{{item.EmpId}}</td>
                  
-                  <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="EditUserBind(item)"  >Edit</button></td>                          
-                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="DeleteUser(item.UserId)" (blur)="LoadUsersGrid()" >Delete</button></td>
+                  <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="bindEditUser(item)"  >Edit</button></td>                          
+                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteUser(item.UserId)" (blur)="loadUsersGrid()" >Delete</button></td>
                
                 </tr>
               </tbody>

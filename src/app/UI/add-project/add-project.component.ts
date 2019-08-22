@@ -80,8 +80,8 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
   {
     if(searchDetail!=undefined && searchDetail.length!=0)
     {
-  this._service.getAllUsers().subscribe(data=>this.listManager=data.filter(item=>item.FstName.toUpperCase()===searchDetail.toUpperCase()|| item.LstName.toUpperCase()===searchDetail.toUpperCase()
-  || item.EmpId.toUpperCase()===searchDetail.toUpperCase()|| item.UserId.toString()===searchDetail ));
+  this._service.getAllUsers().subscribe(data=>this.listManager=data.filter(item=>item.fstName.toUpperCase()===searchDetail.toUpperCase()|| item.lstName.toUpperCase()===searchDetail.toUpperCase()
+  || item.empId.toUpperCase()===searchDetail.toUpperCase()|| item.userId.toString()===searchDetail ));
 
     }
     else

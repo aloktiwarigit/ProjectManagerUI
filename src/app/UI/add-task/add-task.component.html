@@ -30,20 +30,20 @@
                            <label class="col-md-4 control-label">Project Id:</label>
                            <div class="col-md-8 inputGroupContainer">
                                  <div class="input-group">                         
-                        <input id="ProjectId" [(ngModel)]="ProjectId"   name="ProjectId"  class="form-control" required="true"  disabled type="number" > <button [disabled]="Ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openProjectModal(tmpProject)" >search</button> </div>                                     
+                        <input id="projectId" [(ngModel)]="projectId"   name="ProjectId"  class="form-control" required="true"  disabled type="number" > <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openProjectModal(tmpProject)" >search</button> </div>                                     
                         </div>
                        </div>  
                    <div class="form-group">
                       <label class="col-md-4 control-label">Task:</label>
                       <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="TaskDesc"  [(ngModel)]="TaskDesc"  name="TaskDesc" placeholder="Task Details" class="form-control" required="true" value="" type="text"></div>
+                         <div class="input-group"><input id="taskDesc"  [(ngModel)]="taskDesc"  name="taskDesc" placeholder="Task Details" class="form-control" required="true" value="" type="text"></div>
                       </div>
                    </div>
                    <div class="form-group" >
                                
                         <div class="col-md-4 inputGroupContainer">
                            <div class="input-group">
-                             <input id="ParentTaskCheck" name="ParentTaskCheck" class="form-control" (change)="changeCheck($event)"   type="checkbox">
+                             <input id="parentTaskCheck" name="parentTaskCheck" class="form-control" (change)="changeCheckBox($event)"   type="checkbox">
                              <label class="control-label">Parent Task</label></div>
                         </div>
                         
@@ -53,27 +53,27 @@
                       <div class="col-md-8 inputGroupContainer">
                          <div class="input-group">
                             <label for="rangeval">{{ rangeval.value }}</label>
-                           <input id="Priority" [disabled]="Ischecked" #rangeval [(ngModel)]="Priority"   name="Priority"  class="form-control-range" required="true" value="" type="range" min="0" max="30" ></div>                    
+                           <input id="priority" [disabled]="ischecked" #rangeval [(ngModel)]="priority"   name="priority"  class="form-control-range" required="true" value="" type="range" min="0" max="30" ></div>                    
                       </div>
                    </div>
                    <div class="form-group">
                       <label class="col-md-4 control-label">Parent Task Id:</label>
                       <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="ParentTask" [disabled]="Ischecked" [(ngModel)]="ParentId"  #ParentTask name="ParentTask" placeholder="Parent Task Id" readonly class="form-control" required="true" value="" type="number">
-                           <button [disabled]="Ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openParenttaskModal(tmpParentTask)" >search</button>   </div>
+                         <div class="input-group"><input id="parentTask" [disabled]="ischecked" [(ngModel)]="parentId"  #ParentTask name="parentTask" placeholder="Parent Task Id" readonly class="form-control" required="true" value="" type="number">
+                           <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openParenttaskModal(tmpParentTask)" >search</button>   </div>
                       </div>
                    </div>
                    <div class="form-group">
                       <label class="col-md-4 control-label">Start Date:</label>
                       <div class="col-md-8 inputGroupContainer">
                          <div class="input-group">
-                           <input id="StartDate" name="StartDate" [(ngModel)]="StartDate" [disabled]="Ischecked" class="form-control" required="true" value="" type="date"></div>
+                           <input id="startDate" name="startDate" [(ngModel)]="startDate" [disabled]="ischecked" class="form-control" required="true" value="" type="date"></div>
                       </div>
                    </div>
                    <div class="form-group">
                       <label class="col-md-4 control-label">End Date:</label>
                       <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="EndDate" name="EndDate" [disabled]="Ischecked" [(ngModel)]="EndDate"  class="form-control" required="true" value="" type="date"></div>
+                         <div class="input-group"><input id="endDate" name="endDate" [disabled]="ischecked" [(ngModel)]="EndDate"  class="form-control" required="true" value="" type="date"></div>
                       </div>
                    </div>
 
@@ -81,11 +81,11 @@
                         <label class="col-md-4 control-label">UserId:</label>
                         <div class="col-md-8 inputGroupContainer">
                             <div class="input-group">                      
-                     <input id="UserId" [(ngModel)]="UserId"   name="UserId"  class="form-control" required="true" readonly  disabled type="number" > <button [disabled]="Ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openUserModal(tmpUser)" >search</button>    </div>                                     
+                     <input id="userId" [(ngModel)]="userId"   name="userId"  class="form-control" required="true" readonly  disabled type="number" > <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openUserModal(tmpUser)" >search</button>    </div>                                     
                      </div>
                     </div>    
                                    
-              <div style="padding:20px"> <button class="btn btn-primary" (click)="AddNewTask(myForm)" (blur)="LoadParentTask()" type="submit">Add Task</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="ResetTaskForm(myForm)" type="button">Reset</button> </div>
+              <div style="padding:20px"> <button class="btn btn-primary" (click)="addNewTask(myForm)" (blur)="loadParentTask()" type="submit">Add Task</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetTaskForm(myForm)" type="button">Reset</button> </div>
                 </fieldset>
              </form>
           </td>

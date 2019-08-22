@@ -24,7 +24,7 @@
 <div class="row">
     <div class="col-md-3">
                      
-     <input id="txtTaskSearch"  #txtTaskSearch (keyup)="TaskViewSearchFilter(txtTaskSearch.value)" placeholder="Search..."  name="txtTaskSearch"  class="form-control" required="true"   type="text" >                                    
+     <input id="txtTaskSearch"  #txtTaskSearch (keyup)="taskViewSearchFilter(txtTaskSearch.value)" placeholder="Search..."  name="txtTaskSearch"  class="form-control" required="true"   type="text" >                                    
      </div>
      <div class="col-md-1">        
             <label class="control-label" style="padding-right:10px;">Sort Task By: </label>  
@@ -32,16 +32,16 @@
          </div>
           <div class="col-md-2">        
          
-            <button class="btn btn-secondary"  (click)="StartDateSort()"  >Start Date</button> 
+            <button class="btn btn-secondary"  (click)="sortByStartDate()"  >Start Date</button> 
          </div>
          <div class="col-md-2">
-            <button class="btn btn-secondary"  (click)="EndDateSort()" >End Date</button>  
+            <button class="btn btn-secondary"  (click)="sortByEndDate()" >End Date</button>  
          </div>
          <div class="col-md-2" >
-            <button class="btn btn-secondary" (click)="PrioritySort()" >Priority</button> 
+            <button class="btn btn-secondary" (click)="sortByPriority()" >Priority</button> 
          </div>
          <div class="col-md-2" >
-                <button class="btn btn-secondary" (click)="TaskCompletedSort()" >Completed</button> 
+                <button class="btn btn-secondary" (click)="sortByTaskCompleted()" >Completed</button> 
              </div>
         </div>
   <br>  
@@ -60,23 +60,23 @@
             <th></th>     
             <th></th>
             <th></th>
-            <th>IsTaskCompleted</th>
+            <th>isTaskCompleted</th>
           </tr>
         </thead>
         <tbody>
             <tr *ngFor ="let item of list ; trackBy: trackTask" >         
-              <td>{{item.TaskId}}</td>
-              <td>{{item.TaskDesc}}</td>
-              <td>{{item.ParentId}}</td>
-              <td>{{item.ProjectId}}</td>
-              <td>{{item.Priority}}</td>
-              <td>{{item.StartDate |date:'MM-dd-yyyy'}}</td>
-              <td>{{item.EndDate | date:'MM-dd-yyyy' }}</td>
-              <td>{{item.UserId}}</td>
+              <td>{{item.taskId}}</td>
+              <td>{{item.taskDesc}}</td>
+              <td>{{item.parentId}}</td>
+              <td>{{item.projectId}}</td>
+              <td>{{item.priority}}</td>
+              <td>{{item.startDate |date:'MM-dd-yyyy'}}</td>
+              <td>{{item.endDate | date:'MM-dd-yyyy' }}</td>
+              <td>{{item.userId}}</td>
               <td style="padding-left:0;padding-right:0;"><a routerLink="/update-task/{{item.TaskId}}"><button class="btn btn-secondary" style="padding:3px" [disabled]=" (item.TaskStatus=='1')"  >Edit</button></a></td> 
    
-              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="EndTaskFlagchange(item)" (blur)="LoadGridTask()"  class="btn btn-warning">EndTask</button></td>             
-              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="DeleteTask(item.TaskId)" (blur)="LoadGridTask()"   class="btn btn-danger">Delete</button></td>
+              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="endTaskFlagchange(item)" (blur)="loadGridTask()"  class="btn btn-warning">EndTask</button></td>             
+              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="deleteTask(item.TaskId)" (blur)="loadGridTask()"   class="btn btn-danger">Delete</button></td>
               <td>{{(item.TaskStatus=='1')? 'Yes':'No'}}</td>
             </tr>
           </tbody>
