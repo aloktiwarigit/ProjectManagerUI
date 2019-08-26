@@ -195,6 +195,7 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
     
     this.isformValid=false;
     this.isAddedSuccessFully =false;
+    console.log("Form Invalid");
     
   }
   else if(Date.parse(projDtls.startDt)>Date.parse(projDtls.endDt))
@@ -202,12 +203,14 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
     this.isformValid=true;
     this.isAddedSuccessFully =false;
     this.isStartDateGreater=false;
+    console.log("Date Check Failed");
   }
   else
   {
     this.isformValid=true;
     this.isStartDateGreater=true;
-  this._service.addProject(projDtls).subscribe(data=>this.insertProject=data);
+    console.log("calling add project");
+    this._service.addProject(projDtls).subscribe(data=>this.insertProject=data);
   this.isAddedSuccessFully =true;
   
   form.reset();

@@ -51,7 +51,7 @@
                           </div>
                        </div>
                                        
-                  <div style="padding:20px" *ngIf="!isEdit" > <button class="btn btn-primary" (click)="addNewUser(myForm) " (blur)="loadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="!isEdit" > <button class="btn btn-primary" (click)="addUser(myForm) " (blur)="loadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
                   <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="updateUser() " (blur)="loadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
                     </fieldset>
                
@@ -63,7 +63,7 @@
      <hr>
     <div class="row">
        <div class="col-md-6">     
-          <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="SearchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
+          <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="searchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
       </div>
       <div class="col-md-2">
           <label class="control-label" style="padding-right:10px;">Sort By: </label>  
@@ -92,13 +92,13 @@
             </thead>
             <tbody>
                 <tr *ngFor ="let item of list ; trackBy: identifyUser" >         
-                  <td>{{item.UserId}}</td>
-                  <td>{{item.FirstName}}</td>
-                  <td>{{item.LastName}}</td>
-                  <td>{{item.EmpId}}</td>
+                  <td>{{item.userId}}</td>
+                  <td>{{item.fstName}}</td>
+                  <td>{{item.lstName}}</td>
+                  <td>{{item.empId}}</td>
                  
                   <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="bindEditUser(item)"  >Edit</button></td>                          
-                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteUser(item.UserId)" (blur)="loadUsersGrid()" >Delete</button></td>
+                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteUser(item.userId)" (blur)="loadUsersGrid()" >Delete</button></td>
                
                 </tr>
               </tbody>

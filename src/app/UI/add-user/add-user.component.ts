@@ -153,10 +153,10 @@ export class AddUserComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  searchFilter(Searchdetail: string): void {
-    if (Searchdetail != undefined && Searchdetail.length != 0) {
-      this._service.getAllUsers().subscribe(data => this.list = data.filter(item => item.fstName.toUpperCase() === Searchdetail.toUpperCase() || item.lstName.toUpperCase() === Searchdetail.toUpperCase()
-        || item.empId.toUpperCase() === Searchdetail.toUpperCase() || item.userId.toString() === Searchdetail));
+  searchFilter(searchDetail: string): void {
+    if (searchDetail != undefined && searchDetail.length != 0) {
+      this._service.getAllUsers().subscribe(data => this.list = data.filter(item => item.fstName.toUpperCase() === searchDetail.toUpperCase() || item.lstName.toUpperCase() === searchDetail.toUpperCase()
+        || item.empId === searchDetail.toUpperCase() || item.userId.toString() === searchDetail));
 
     }
     else {
