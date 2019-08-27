@@ -52,9 +52,9 @@ export class AddTaskComponent implements OnInit {
 
 
   constructor(private _service: ProjectService, private ProjectmodalServ: BsModalService, private ParentTaskmodalServ: BsModalService, private UsermodalServ: BsModalService, public datepipe: DatePipe) {
-    //this._service.getAllProjects().subscribe(data => this.listProjects = data);
-    //this._service.getAllParentTask().subscribe(data => this.getParentTask = data);
-    //this._service.getAllUsers().subscribe(data => this.listUser = data);
+      this._service.getAllProjects().subscribe(data => this.listProjects = data);
+      this._service.getAllParentTask().subscribe(data => this.getParentTask = data);
+      this._service.getAllUsers().subscribe(data => this.listUser = data);
   }
 
   ngOnInit() {

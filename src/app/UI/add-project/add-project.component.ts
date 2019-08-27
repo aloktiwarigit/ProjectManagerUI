@@ -155,6 +155,7 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
   selectManger(managerId:number):void
   {
     this.managerId=managerId;
+    console.log("Updating Manager ID"+managerId);
     this.isManagerSelected=true;
   }
 
@@ -186,7 +187,9 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
     this.isDeletedSuccessFully=false;
     this.isUpdatedSuccessFully=false;
   if(projDtls.priority==undefined)
-  projDtls.priority=15;
+  projDtls.priority=0;
+
+ 
   if(projDtls.projectDesc == undefined||projDtls.managerId==undefined||
     projDtls.startDt ==undefined||projDtls.endDt==undefined||
     projDtls.projectDesc==""||projDtls.managerId===0
@@ -195,7 +198,7 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
     
     this.isformValid=false;
     this.isAddedSuccessFully =false;
-    console.log("Form Invalid");
+ 
     
   }
   else if(Date.parse(projDtls.startDt)>Date.parse(projDtls.endDt))
@@ -217,21 +220,6 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
   
   }
   window.scroll(0,0);
-  }
-  projSearchFilter(projectSearchCriteria: string):void
-  {
-    if(projectSearchCriteria!=undefined && projectSearchCriteria.length!=0)
-    {
-  this._service.getAllProjects().subscribe(data=>this.listProjects=data.filter(item=>this.datepipe.transform(item.startDt, 'yyyy-MM-dd')===this.datepipe.transform(projectSearchCriteria, 'yyyy-MM-dd')|| this.datepipe.transform(item.endDt, 'yyyy-MM-dd')===this.datepipe.transform(projectSearchCriteria, 'yyyy-MM-dd')
-  || item.projId.toString()=== projectSearchCriteria|| item.projectDesc.toUpperCase()==projectSearchCriteria.toUpperCase()
-  || item.priority.toString()=== projectSearchCriteria || item.managerId.toString()=== projectSearchCriteria));
-
-    }
-    else
-    {
-      this._service.getAllProjects().subscribe(data=>this.listProjects=data);
-    }
-     
   }
   editProject():void 
   {
@@ -265,7 +253,7 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
   else
   {
   this.isformValid=true;
-  this._service.editProject(projDtls.projId,projDtls).subscribe(data=>updateResult=data);
+  this._service.updateProject(projDtls.projId,projDtls).subscribe(data=>updateResult=data);
   this.isUpdatedSuccessFully =true;
   this.isDeletedSuccessFully=false;
   this.isAddedSuccessFully=false;

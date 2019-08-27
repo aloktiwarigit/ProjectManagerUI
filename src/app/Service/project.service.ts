@@ -51,15 +51,15 @@ editUser(UserId :number, Item: User):Observable<any>
     .pipe(map(x=>x));
   }
   
-  editProject(ProjectId :number, Item: Project):Observable<any>
+  updateProject(projectId :number, Item: Project):Observable<any>
     {
-      return  this._http.put(this._apiUrl+"Project/addProject"+ProjectId,Item).pipe(map(x=>x));
+      return  this._http.put(this._apiUrl+"Project/updateProject/"+projectId,Item).pipe(map(x=>x));
     }
     
     
-  deleteProject(ProjectId :number):Observable<any>
+  deleteProject(projectId :number):Observable<any>
     {
-      return  this._http.delete(this._apiUrl+"Project/deleteProject"+ProjectId).pipe(map(x=>x));
+      return  this._http.delete(this._apiUrl+"Project/deleteProject/"+projectId).pipe(map(x=>x));
     }
 
   getAllParentTask() : Observable<ParentTask[]>

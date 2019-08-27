@@ -34,9 +34,9 @@
                          </div>
 
                          <div class="form-group">
-                               <label class="col-md-4 control-label">Project:</label>
+                               <label class="col-md-4 control-label">Project Title:</label>
                                <div class="col-md-8 inputGroupContainer">
-                                  <div class="input-group"><input id="projDesc" [(ngModel)]="projDesc"  name="projDesc"  class="form-control" placeholder="Project Desc"  type="text"></div>
+                                  <div class="input-group"><input id="projDesc" [(ngModel)]="projDesc"  name="projDesc"  class="form-control" placeholder="Project Title"  type="text"></div>
                                </div>
                             </div>
                             <div class="form-group" >
@@ -66,7 +66,8 @@
                                 <div class="col-md-8 inputGroupContainer">
                                    <div class="input-group">
                                       <label for="rangeval">{{ rangeval.value }}</label>
-                                     <input id="priority" #rangeval [(ngModel)]="priority"   name="priority"  class="form-control-range" required="true"  type="range" min="0" max="30" ></div>                    
+                                      
+                                     <input id="priority" #rangeval [(ngModel)]="priority"  name="priority"  class="form-control-range" required="true"  type="range" min="0" max="30" value="0"></div>                    
                                      
                                 </div>
                              </div>
@@ -88,8 +89,8 @@
      </table>
      <hr>
      <div class="row">
-        <div class="col-md-6">     
-           <div class="input-group"><input id="txtSearchProject" name="txtSearchProject" #txtSearchProject (keyup)="projectSearchFilter(txtSearchProject.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
+        <div class="col-md-7">     
+           
        </div>
        <div class="col-md-2">
            <label class="control-label" style="padding-right:10px;">Sort By: </label>  
@@ -126,7 +127,7 @@
             <td>{{item.endDt | date:'MM-dd-yyyy' }}</td>
             <td>{{item.managerId }}</td>
             <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="editProjBind(item)"  >Update</button></td>                          
-            <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.ProjectId)" (blur)="LoadProjectGrid()" >Suspend</button></td>
+            <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.projId)" (blur)="loadProjectGrid()" >Delete</button></td>
           </tr>
         </tbody>
       </table>
@@ -141,7 +142,7 @@
         <h6 class="text text-success" *ngIf="isManagerSelected">Manager userId is selected successfully...</h6>
         <div class="row">
             <div class="col-md-6">     
-               <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="searchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
+               <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="projSearchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
            </div>
            </div>
            <br>
@@ -158,11 +159,11 @@
               </thead>
               <tbody>
                   <tr *ngFor ="let item of listManager ; trackBy: trackUser" >         
-                    <td>{{item.UserId}}</td>
-                    <td>{{item.FirstName}}</td>
-                    <td>{{item.LastName}}</td>
-                    <td>{{item.EmpId}}</td>                     
-                    <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success" (click)="selectManger(item.UserId)"  >Select</button></td>                                                   
+                    <td>{{item.userId}}</td>
+                    <td>{{item.fstName}}</td>
+                    <td>{{item.lstName}}</td>
+                    <td>{{item.empId}}</td>                     
+                    <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success" (click)="selectManger(item.userId)"  >Select</button></td>                                                   
                   </tr>
                 </tbody>
               </table>
