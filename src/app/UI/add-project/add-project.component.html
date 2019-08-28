@@ -1,172 +1,186 @@
-
 <h3 class="text-warning">Add Project</h3>
 <hr>
 <div class="row">
-    <div class="col-xl-12">
-  <ul class="nav nav-pills ">
-      <li class="nav-item" >
-            <h5><a routerLink="/add-user"  class="text-secondary" >Add User</a></h5>
-          </li>
-          <li class="nav-item" style="padding-left:200px">
-              <h4><a routerLink="/add-project" routerLinkActive="active"  >Add Project</a></h4>
-            </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/add-task" class="text-secondary"  >Add Task</a></h5>
-    </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/view-task" class="text-secondary"  >View Task</a></h5>
-    </li>
-    </ul>
-  </div>
-  </div>
+   <div class="col-xl-12">
+      <ul class="nav nav-pills ">
+         <li class="nav-item">
+            <h5><a routerLink="/add-user" class="text-secondary">Add User</a></h5>
+         </li>
+         <li class="nav-item" style="padding-left:200px">
+            <h4><a routerLink="/add-project" routerLinkActive="active">Add Project</a></h4>
+         </li>
+         <li class="nav-item" style="padding-left:200px">
+            <h5><a routerLink="/add-task" class="text-secondary">Add Task</a></h5>
+         </li>
+         <li class="nav-item" style="padding-left:200px">
+            <h5><a routerLink="/view-task" class="text-secondary">View Task</a></h5>
+         </li>
+      </ul>
+   </div>
+</div>
 
-  <form  #myForm="ngForm"  class="well form-horizontal"  >
-    <table class="table table-striped">
-        <tbody>
-           <tr>
-              <td colspan="1">             
-                    <fieldset>
-                        <div class="form-group" *ngIf="isEdit">
-                            <label class="col-md-4 control-label">Project Id:</label>
-                            <div class="col-md-8 inputGroupContainer">
-                               <div class="input-group"><input id="projId" [(ngModel)]="projId"  name="projectId"  class="form-control" readonly type="number"></div>
-                            </div>
-                         </div>
+<form #myForm="ngForm" class="well form-horizontal">
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td colspan="1">
+               <fieldset>
+                  <div class="form-group" *ngIf="isEdit">
+                     <label class="col-md-4 control-label">Project Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="projId" [(ngModel)]="projId" name="projectId" class="form-control"
+                              readonly type="number"></div>
+                     </div>
+                  </div>
 
-                         <div class="form-group">
-                               <label class="col-md-4 control-label">Project Title:</label>
-                               <div class="col-md-8 inputGroupContainer">
-                                  <div class="input-group"><input id="projDesc" [(ngModel)]="projDesc"  name="projDesc"  class="form-control" placeholder="Project Title"  type="text"></div>
-                               </div>
-                            </div>
-                            <div class="form-group" >
-                             
-                                <div class="col-md-4 inputGroupContainer">
-                                   <div class="input-group">
-                                     <input id="startEndDateChk" name="startEndDateChk" class="form-control" (change)="changeCheckBox($event)"   type="checkbox">
-                                     <label class="control-label"> Set Start and End Date</label></div>
-                                </div>
-                                
-                             </div>
-                            <div class="form-group"  >
-                                <label class="col-md-4 control-label">Start Date:</label>
-                                <div class="col-md-8 inputGroupContainer">
-                                   <div class="input-group">
-                                     <input id="startDt" [disabled]="!isChecked"  name="startDt" [ngModel]="startDt | date:'yyyy-MM-dd'"  required="true" value="" type="date"  (ngModelChange)="startDt=$event" class="form-control"></div>
-                                </div>
-                             </div>
-                             <div class="form-group" >
-                                <label class="col-md-4 control-label">End Date:</label>
-                                <div class="col-md-8 inputGroupContainer">
-                                   <div class="input-group"><input id="endDt" [disabled]="!isChecked" name="endDt" [ngModel]="endDt | date:'yyyy-MM-dd'" (ngModelChange)="endDt=$event"   class="form-control" required="true" value="" type="date"></div>
-                                </div>
-                             </div>
-                             <div class="form-group">
-                                <label class="col-md-4 control-label">Priority:</label>
-                                <div class="col-md-8 inputGroupContainer">
-                                   <div class="input-group">
-                                      <label for="rangeval">{{ rangeval.value }}</label>
-                                      
-                                     <input id="priority" #rangeval [(ngModel)]="priority"  name="priority"  class="form-control-range" required="true"  type="range" min="0" max="30" value="0"></div>                    
-                                     
-                                </div>
-                             </div>
-                             <div class="form-group">
-                                <label class="col-md-4 control-label">Manager Id:</label>
-                                <div class="col-md-8 inputGroupContainer">
-                                    <div class="input-group">                      
-                             <input id="managerId" [(ngModel)]="managerId"   name="managerId"  class="form-control" required="true"  disabled type="number" > <button style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openModal(tmpManager)" >search</button>    </div>                                     
-                             </div>
-                            </div>                                         
-                  <div style="padding:20px" *ngIf="!isEdit" > <button class="btn btn-primary" (click)="addProject(myForm) " (blur)="loadProjectGrid()"  type="submit">Add project</button> &nbsp; &nbsp;<button class="btn btn-info"  (click)="resetForm(myForm)"  type="button">Reset</button> </div>
-                  <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="editProject() " (blur)="loadProjectGrid()" type="submit">Update Project</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetForm(myForm)" type="button">Reset</button> </div>
-                    </fieldset>
-               
-              </td>
-             
-           </tr>
-        </tbody>
-     </table>
-     <hr>
-     <div class="row">
-        <div class="col-md-7">     
-           
-       </div>
-       <div class="col-md-2">
-           <label class="control-label" style="padding-right:10px;">Sort By: </label>  
-           <button class="btn btn-secondary"  (click)="sortByStartDate()"  >Start Date</button> 
-        </div>
-        <div class="col-md-1">
-           <button class="btn btn-secondary"  (click)="sortByEndDate()" >End Date</button>  
-        </div>
-        <div class="col-md-2" >
-           <button class="btn btn-secondary" (click)="sortByPriority()" >Priority</button> 
-        </div>
-       </div>
-     <br>  
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Project Title:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="projDesc" [(ngModel)]="projDesc" name="projDesc" class="form-control"
+                              placeholder="Project Title" type="text"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
 
-<table class="table" >
-    <thead>
-        <tr>
-          <th scope="col">Project Id</th>
-          <th scope="col">Project Desc</th>        
-          <th scope="col">Priority</th>
-          <th scope="col">Start Date</th>
-          <th scope="col">End Date</th>
-          <th scope="col">Manager UserId</th>
-          <th></th>     
-          <th></th>          
-        </tr>
+                     <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="startEndDateChk" name="startEndDateChk" class="form-control" (change)="changeCheckBox($event)"
+                              type="checkbox">
+                           <label class="control-label"> Set Start and End Date</label></div>
+                     </div>
+
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Start Date:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="startDt" [disabled]="!isChecked" name="startDt" [ngModel]="startDt | date:'yyyy-MM-dd'"
+                              required="true" value="" type="date" (ngModelChange)="startDt=$event" class="form-control"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">End Date:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="endDt" [disabled]="!isChecked" name="endDt" [ngModel]="endDt | date:'yyyy-MM-dd'"
+                              (ngModelChange)="endDt=$event" class="form-control" required="true" value="" type="date"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Priority:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <label for="rangeval">{{ rangeval.value }}</label>
+
+                           <input id="priority" #rangeval [(ngModel)]="priority" name="priority" class="form-control-range"
+                              required="true" type="range" min="0" max="30" value="0"></div>
+
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Manager Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="managerId" [(ngModel)]="managerId" name="managerId" class="form-control" required="true"
+                              disabled type="number"> <button style="float:right; padding:3px;" class="btn btn-secondary"
+                              type="button" (click)="openModal(tmpManager)">search</button> </div>
+                     </div>
+                  </div>
+                  <div style="padding:20px" *ngIf="!isEdit"> <button class="btn btn-primary" (click)="addProject(myForm) "
+                        (blur)="loadProjectGrid()" type="submit">Add project</button> &nbsp; &nbsp;<button class="btn btn-info"
+                        (click)="resetForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="editProject() "
+                        (blur)="loadProjectGrid()" type="submit">Update Project</button> &nbsp; &nbsp;<button class="btn btn-info"
+                        (click)="resetForm(myForm)" type="button">Reset</button> </div>
+               </fieldset>
+
+            </td>
+
+         </tr>
+      </tbody>
+   </table>
+   <hr>
+   <div class="row">
+      <div class="col-md-7">
+
+      </div>
+      <div class="col-md-2">
+         <label class="control-label" style="padding-right:10px;">Sort By: </label>
+         <button class="btn btn-secondary" (click)="sortByStartDate()">Start Date</button>
+      </div>
+      <div class="col-md-1">
+         <button class="btn btn-secondary" (click)="sortByEndDate()">End Date</button>
+      </div>
+      <div class="col-md-2">
+         <button class="btn btn-secondary" (click)="sortByPriority()">Priority</button>
+      </div>
+   </div>
+   <br>
+
+   <table class="table">
+      <thead>
+         <tr>
+            <th scope="col">Project Id</th>
+            <th scope="col">Project Desc</th>
+            <th scope="col">Priority</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Manager UserId</th>
+            <th></th>
+            <th></th>
+         </tr>
       </thead>
       <tbody>
-          <tr *ngFor ="let item of listProjects ; trackBy: trackProject" >         
+         <tr *ngFor="let item of listProjects ; trackBy: trackProject">
             <td>{{item.projId}}</td>
             <td>{{item.projectDesc}}</td>
-            <td>{{item.priority}}</td>          
+            <td>{{item.priority}}</td>
             <td>{{item.startDt |date:'MM-dd-yyyy'}}</td>
             <td>{{item.endDt | date:'MM-dd-yyyy' }}</td>
             <td>{{item.managerId }}</td>
-            <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="editProjBind(item)"  >Update</button></td>                          
-            <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.projId)" (blur)="loadProjectGrid()" >Delete</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </form>
-    <ng-template #tmpManager>
-     <div class="modal-header">
-<h4 class="modal-title pull-left text-warning">Manager list</h4>
-<button class="btn btn-secondary close pull-right" type="button" (click)="modalRef.hide()" aria-label="close"></button>
-<span aria-hidden="true">&times;</span>
-     </div>
-     <div class="modal-body">
-        <h6 class="text text-success" *ngIf="isManagerSelected">Manager userId is selected successfully...</h6>
-        <div class="row">
-            <div class="col-md-6">     
-               <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="projSearchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
-           </div>
-           </div>
-           <br>
-        <table class="table" >
-            <thead>
-                <tr>
-                  <th scope="col">User Id</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Employee Id</th> 
-                  <th></th>
-            
-                </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor ="let item of listManager ; trackBy: trackUser" >         
-                    <td>{{item.userId}}</td>
-                    <td>{{item.fstName}}</td>
-                    <td>{{item.lstName}}</td>
-                    <td>{{item.empId}}</td>                     
-                    <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success" (click)="selectManger(item.userId)"  >Select</button></td>                                                   
-                  </tr>
-                </tbody>
-              </table>
+            <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="editProjBind(item)">Update</button></td>
+            <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.projId)"
+                  (blur)="loadProjectGrid()">Delete</button></td>
+         </tr>
+      </tbody>
+   </table>
+</form>
+<ng-template #tmpManager>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left text-warning">Manager list</h4>
+      <button class="btn btn-secondary close pull-right" type="button" (click)="modalRef.hide()" aria-label="close"></button>
+      <span aria-hidden="true">&times;</span>
+   </div>
+   <div class="modal-body">
+      <h6 class="text text-success" *ngIf="isManagerSelected">Manager userId is selected successfully...</h6>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="projSearchFilter(txtSearch.value)"
+                  placeholder="Search..." class="form-control" value="" type="text"></div>
+         </div>
+      </div>
+      <br>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">User Id</th>
+               <th scope="col">First Name</th>
+               <th scope="col">Last Name</th>
+               <th scope="col">Employee Id</th>
+               <th></th>
 
-     </div>
-    </ng-template>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let item of listManager ; trackBy: trackUser">
+               <td>{{item.userId}}</td>
+               <td>{{item.fstName}}</td>
+               <td>{{item.lstName}}</td>
+               <td>{{item.empId}}</td>
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success"
+                     (click)="selectManger(item.userId)">Select</button></td>
+            </tr>
+         </tbody>
+      </table>
+
+   </div>
+</ng-template>

@@ -31,7 +31,7 @@ export class AddTaskComponent implements OnInit {
   public taskStatus: string;
   public userId: number;
   public projectId: number;
-  public addTask: any;
+  public task: any;
   public taskId: number;
   public taskDesc: string;
   public isformValid: boolean = true;
@@ -47,20 +47,20 @@ export class AddTaskComponent implements OnInit {
   usermodalRef: BsModalRef;
   projectmodalRef: BsModalRef;
   listProjects: Project[];
-  getParentTask: ParentTask[];
+  listParentTask: ParentTask[];
   listUser: User[];
 
 
   constructor(private _service: ProjectService, private ProjectmodalServ: BsModalService, private ParentTaskmodalServ: BsModalService, private UsermodalServ: BsModalService, public datepipe: DatePipe) {
       this._service.getAllProjects().subscribe(data => this.listProjects = data);
-      this._service.getAllParentTask().subscribe(data => this.getParentTask = data);
+      this._service.getAllParentTask().subscribe(data => this.listParentTask = data);
       this._service.getAllUsers().subscribe(data => this.listUser = data);
   }
 
   ngOnInit() {
   }
 
-  addNewTask(form: NgForm): void {
+  addTask(form: NgForm): void {
   this.isParentAddedSuccessFully = false;
 
     if (this.ischecked) {
@@ -72,7 +72,7 @@ export class AddTaskComponent implements OnInit {
       }
       else {
         this.isformValid = true;
-        this._service.addParentTask(ParentTaskDetails).subscribe(data => this.addTask = data);
+        this._service.addParentTask(ParentTaskDetails).subscribe(data => this.task = data);
         this.isParentAddedSuccessFully = true;
         form.reset();
       }
@@ -106,7 +106,7 @@ export class AddTaskComponent implements OnInit {
       else {
         this.isformValid = true;
         this.isStartDateGreater = false;
-        this._service.addTask(Taskdetails).subscribe(data => this.addTask = data);
+        this._service.addTask(Taskdetails).subscribe(data => this.task = data);
         this.isAddedSuccessFully = true;
         form.reset();
       }
@@ -128,14 +128,16 @@ export class AddTaskComponent implements OnInit {
     window.scroll(0, 0);
   }
 
-  selectProject(ProjectId: number): void {
-    this.projectId = ProjectId;
+  selectProject(projectId: number): void {
+    this.projectId = projectId;
     this.isProjectSelected = true;
+    this.projectmodalRef.hide();
   }
 
   selectParentTask(ParentId: number): void {
     this.parentId = ParentId;
     this.isParentTaskSelected = true;
+    this.parentTaskmodalRef.hide();
 
   }
   openProjectModal(tmpProject: TemplateRef<any>): void {
@@ -156,13 +158,14 @@ export class AddTaskComponent implements OnInit {
     }
 
   }
-  searchParentTaskFilter(ParentTaskSearchCriteria: string): void {
-    if (ParentTaskSearchCriteria != undefined && ParentTaskSearchCriteria.length != 0) {
-      this._service.getAllParentTask().subscribe(data => this.getParentTask = data.filter(item => item.parentId.toString() === ParentTaskSearchCriteria || item.parentTask.toUpperCase() === ParentTaskSearchCriteria.toUpperCase()));
+  searchParentTaskFilter(parentTaskSearchTxt: string): void {
+    if (parentTaskSearchTxt != undefined && parentTaskSearchTxt.length != 0) {
+      
+      this._service.getAllParentTask().subscribe(data => this.listParentTask = data.filter(item => item.parentId.toString() === parentTaskSearchTxt || item.parentTask.toUpperCase() === parentTaskSearchTxt.toUpperCase()));
 
     }
     else {
-      this._service.getAllParentTask().subscribe(data => this.getParentTask = data);
+      this._service.getAllParentTask().subscribe(data => this.listParentTask = data);
     }
 
   }
@@ -187,6 +190,7 @@ export class AddTaskComponent implements OnInit {
   selectUser(UserId: number): void {
     this.userId = UserId;
     this.isUserSelected = true;
+    this.usermodalRef.hide();
   }
   trackUser(index: number, item: any) {
 
@@ -208,6 +212,6 @@ export class AddTaskComponent implements OnInit {
     this.usermodalRef = this.UsermodalServ.show(tmpUser);
   }
   loadParentTask(): void {
-    this._service.getAllParentTask().subscribe(data => this.getParentTask = data);
+    this._service.getAllParentTask().subscribe(data => this.listParentTask = data);
   }
 }

@@ -64,12 +64,12 @@ editUser(UserId :number, Item: User):Observable<any>
 
   getAllParentTask() : Observable<ParentTask[]>
   {
-    return  this._http.get<ParentTask[]>(this._apiUrl+"ParentTasks/getAllParentTask").pipe(map(x=>x));
+    return  this._http.get<ParentTask[]>(this._apiUrl+"Task/getAllParentTasks").pipe(map(x=>x));
 
   }
   addParentTask(Item:ParentTask):Observable<any>
   {
-    return this._http.post(this._apiUrl+"ParentTasks/addPatrentTask",Item)
+    return this._http.post(this._apiUrl+"Task/addParentTask",Item)
     .pipe(map(x=>x));
   }
   getAllTask() : Observable<Task[]>

@@ -157,6 +157,7 @@ constructor(private modalServ:BsModalService,private _service:ProjectService,pub
     this.managerId=managerId;
     console.log("Updating Manager ID"+managerId);
     this.isManagerSelected=true;
+    this.modalRef.hide();
   }
 
   addProject(form: NgForm):void 

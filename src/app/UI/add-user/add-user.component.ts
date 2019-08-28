@@ -96,6 +96,7 @@ export class AddUserComponent implements OnInit {
       this.isAddedSuccessFully = true;
 
       form.reset();
+      this.loadUsersGrid();
 
     }
     window.scroll(0, 0);
@@ -121,6 +122,7 @@ export class AddUserComponent implements OnInit {
       this.isUpdatedSuccessFully = true;
       this.isDeletedSuccessFully = false;
       this.isAddedSuccessFully = false;
+      this.loadUsersGrid();
     }
     window.scroll(0, 0);
   }
@@ -173,6 +175,7 @@ export class AddUserComponent implements OnInit {
     this.isAddedSuccessFully = false;
     this.isFormValid = true;
     window.scroll(0, 0);
+    this.loadUsersGrid();
   }
 
 

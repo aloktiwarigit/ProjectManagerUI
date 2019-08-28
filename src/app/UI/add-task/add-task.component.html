@@ -1,96 +1,232 @@
-
 <h3 class="text-warning">Add Task</h3>
 <hr>
 <div class="row">
-    <div class="col-xl-12">
-  <ul class="nav nav-pills ">
-      <li class="nav-item">
-            <h5><a routerLink="/add-user" class="text-secondary" >Add User</a></h5>
-          </li>
-          <li class="nav-item" style="padding-left:200px">
-              <h5><a routerLink="/add-project" class="text-secondary" >Add Project</a></h5>
-            </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h4><a routerLink="/add-task" routerLinkActive="active" >Add Task</a></h4>
-    </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/view-task" class="text-secondary"  >View Task</a></h5>
-    </li>
-    </ul>
-  </div>
-  </div>
-
-  <table class="table table-striped">
-    <tbody>
-       <tr>
-          <td colspan="1">
-             <form  #myForm="ngForm"  class="well form-horizontal"  >
-                <fieldset>
-                     <div class="form-group">
-                           <label class="col-md-4 control-label">Project Id:</label>
-                           <div class="col-md-8 inputGroupContainer">
-                                 <div class="input-group">                         
-                        <input id="projectId" [(ngModel)]="projectId"   name="ProjectId"  class="form-control" required="true"  disabled type="number" > <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openProjectModal(tmpProject)" >search</button> </div>                                     
+   <div class="col-xl-12">
+      <ul class="nav nav-pills ">
+         <li class="nav-item">
+            <h5><a routerLink="/add-user" class="text-secondary">Add User</a></h5>
+         </li>
+         <li class="nav-item" style="padding-left:21px">
+            <h5><a routerLink="/add-project" class="text-secondary">Add Project</a></h5>
+         </li>
+         <li class="nav-item" style="padding-left:21px">
+            <h4><a routerLink="/add-task" routerLinkActive="active">Add Task</a></h4>
+         </li>
+         <li class="nav-item" style="padding-left:21px">
+            <h5><a routerLink="/view-task" class="text-secondary">View Task</a></h5>
+         </li>
+      </ul>
+   </div>
+</div>
+<h6 class="alert alert-danger" *ngIf="!isformValid">All the below fields are mandatory.</h6>
+<h6 class="alert alert-success" *ngIf="isAddedSuccessFully">Task added successfully.</h6>
+<h6 class="alert alert-success" *ngIf="isParentAddedSuccessFully">Parent Task added successfully.</h6>
+<h6 class="alert alert-danger" *ngIf="isStartDateGreater">Start date should not be greater than End date.</h6>
+<table class="table table-striped">
+   <tbody>
+      <tr>
+         <td colspan="1">
+            <form #myForm="ngForm" class="well form-horizontal">
+               <fieldset>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Project Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="ProjectId" [(ngModel)]="projectId" name="ProjectId" class="form-control" required="true"
+                              disabled type="number"> <button [disabled]="ischecked" style="float:right; padding:3px;"
+                              class="btn btn-secondary" type="button" (click)="openProjectModal(tmpProject)">search</button>
                         </div>
-                       </div>  
-                   <div class="form-group">
-                      <label class="col-md-4 control-label">Task:</label>
-                      <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="taskDesc"  [(ngModel)]="taskDesc"  name="taskDesc" placeholder="Task Details" class="form-control" required="true" value="" type="text"></div>
-                      </div>
-                   </div>
-                   <div class="form-group" >
-                               
-                        <div class="col-md-4 inputGroupContainer">
-                           <div class="input-group">
-                             <input id="parentTaskCheck" name="parentTaskCheck" class="form-control" (change)="changeCheckBox($event)"   type="checkbox">
-                             <label class="control-label">Parent Task</label></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Task:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="TaskDesc" [(ngModel)]="taskDesc" name="TaskDesc"
+                              placeholder="Task Details" class="form-control" required="true" value="" type="text"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+
+                     <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="ParentTaskCheck" name="ParentTaskCheck" class="form-control" (change)="changeCheckBox($event)"
+                              type="checkbox">
+                           <label class="control-label">Parent Task</label></div>
+                     </div>
+
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Priority</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <label for="rangeval">{{ rangeval.value }}</label>
+                           <input id="Priority" [disabled]="ischecked" #rangeval [(ngModel)]="priority" name="Priority"
+                              class="form-control-range" required="true" value="" type="range" min="0" max="30"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Parent Task Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="ParentTask" [disabled]="ischecked" [(ngModel)]="parentId"
+                              #ParentTask name="ParentTask" placeholder="Parent Task Id" readonly class="form-control"
+                              required="true" value="" type="number">
+                           <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"
+                              type="button" (click)="openParenttaskModal(tmpParentTask)">search</button> </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Start Date:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="StartDate" name="StartDate" [(ngModel)]="startDate" [disabled]="ischecked" class="form-control"
+                              required="true" value="" type="date"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">End Date:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="EndDate" name="EndDate" [disabled]="ischecked" [(ngModel)]="endDate"
+                              class="form-control" required="true" value="" type="date"></div>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">UserId:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group">
+                           <input id="UserId" [(ngModel)]="userId" name="UserId" class="form-control" required="true"
+                              readonly disabled type="number"> <button [disabled]="ischecked" style="float:right; padding:3px;"
+                              class="btn btn-secondary" type="button" (click)="openUserModal(tmpUser)">search</button>
                         </div>
-                        
                      </div>
-                   <div class="form-group">
-                      <label class="col-md-4 control-label">Priority</label>
-                      <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group">
-                            <label for="rangeval">{{ rangeval.value }}</label>
-                           <input id="priority" [disabled]="ischecked"  #rangeval [(ngModel)]="priority"   name="priority"  class="form-control-range" required="true" value="" type="range" min="0" max="30" ></div>                    
-                      </div>
-                   </div>
-                   <div class="form-group">
-                      <label class="col-md-4 control-label">Parent Task Id:</label>
-                      <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="parentTask" [disabled]="ischecked" [(ngModel)]="parentId"  #ParentTask name="parentTask" placeholder="Parent Task Id" readonly class="form-control" required="true" value="" type="number">
-                           <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openParenttaskModal(tmpParentTask)" >search</button>   </div>
-                      </div>
-                   </div>
-                   <div class="form-group">
-                      <label class="col-md-4 control-label">Start Date:</label>
-                      <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group">
-                           <input id="startDate" name="startDate" [(ngModel)]="startDate" [disabled]="ischecked" class="form-control" required="true" value="" type="date"></div>
-                      </div>
-                   </div>
-                   <div class="form-group">
-                      <label class="col-md-4 control-label">End Date:</label>
-                      <div class="col-md-8 inputGroupContainer">
-                         <div class="input-group"><input id="endDate" name="endDate" [disabled]="ischecked" [(ngModel)]="EndDate"  class="form-control" required="true" value="" type="date"></div>
-                      </div>
-                   </div>
+                  </div>
 
-                   <div class="form-group">
-                        <label class="col-md-4 control-label">UserId:</label>
-                        <div class="col-md-8 inputGroupContainer">
-                            <div class="input-group">                      
-                     <input id="userId" [(ngModel)]="userId"   name="userId"  class="form-control" required="true" readonly  disabled type="number" > <button [disabled]="ischecked" style="float:right; padding:3px;" class="btn btn-secondary"  type="button" (click)="openUserModal(tmpUser)" >search</button>    </div>                                     
-                     </div>
-                    </div>    
-                                   
-              <div style="padding:20px"> <button class="btn btn-primary" (click)="addNewTask(myForm)" (blur)="loadParentTask()" type="submit">Add Task</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetTaskForm(myForm)" type="button">Reset</button> </div>
-                </fieldset>
-             </form>
-          </td>
-         
-       </tr>
-    </tbody>
- </table>
+                  <div style="padding:20px"> <button class="btn btn-primary" (click)="addTask(myForm)" (blur)="loadParentTask()"
+                        type="submit">Add Task</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetTaskForm(myForm)"
+                        type="button">Reset</button> </div>
+               </fieldset>
+            </form>
+         </td>
 
+      </tr>
+   </tbody>
+</table>
+
+
+<ng-template #tmpProject>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left text-warning">Project list</h4>
+      <button class="btn btn-secondary close pull-right" type="button" (click)="projectmodalRef.hide()" aria-label="close"></button>
+      <span aria-hidden="true">&times;</span>
+   </div>
+   <div class="modal-body">
+      <h6 class="text text-success" *ngIf="isProjectSelected">Project is selected successfully...</h6>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="input-group"><input id="txtSearchProject" name="txtSearchProject" #txtSearchProject (keyup)="searchProjectFilter(txtSearchProject.value)"
+                  placeholder="Search..." class="form-control" value="" type="text"></div>
+         </div>
+      </div>
+      <br>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">ProjectId</th>
+               <th scope="col">ProjectDesc</th>
+               <th scope="col">Priority</th>
+               <th scope="col">ManagerUserId</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let item of listProjects ; trackBy: trackProject">
+               <td>{{item.projId}}</td>
+               <td>{{item.projectDesc}}</td>
+               <td>{{item.priority}}</td>
+               <td>{{item.managerId }}</td>
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success"
+                     (click)="selectProject(item.projId)">Select</button></td>
+            </tr>
+         </tbody>
+      </table>
+
+   </div>
+</ng-template>
+
+<ng-template #tmpParentTask>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left text-warning">Parent Task list</h4>
+      <button class="btn btn-secondary close pull-right" type="button" (click)="parentTaskmodalRef.hide()" aria-label="close"></button>
+      <span aria-hidden="true">&times;</span>
+   </div>
+   <div class="modal-body">
+      <h6 class="text text-success" *ngIf="isParentTaskSelected">Parent task is selected successfully...</h6>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="input-group"><input id="txtSearchParentTask" name="txtSearchParentTask" #txtSearchParentTask
+                  (keyup)="searchParentTaskFilter(txtSearchParentTask.value)" placeholder="Search..." class="form-control"
+                  value="" type="text"></div>
+         </div>
+      </div>
+      <br>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">Parent Id</th>
+               <th scope="col">Parent Task</th>
+
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let item of listParentTask ; trackBy: trackParentTask">
+               <td>{{item.parentId}}</td>
+               <td>{{item.parentTask}}</td>
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success"
+                     (click)="selectParentTask(item.parentId)">Select</button></td>
+            </tr>
+         </tbody>
+      </table>
+
+   </div>
+</ng-template>
+<ng-template #tmpUser>
+   <div class="modal-header">
+      <h4 class="modal-title pull-left text-warning">User list</h4>
+      <button class="btn btn-secondary close pull-right" type="button" (click)="usermodalRef.hide()" aria-label="close"></button>
+      <span aria-hidden="true">&times;</span>
+   </div>
+   <div class="modal-body">
+      <h6 class="text text-success" *ngIf="isUserSelected">User userId is selected successfully...</h6>
+      <div class="row">
+         <div class="col-md-6">
+            <div class="input-group"><input id="txtSearchUser" name="txtSearchUser" #txtSearchUser (keyup)="searchUserFilter(txtSearchUser.value)"
+                  placeholder="Search" class="form-control" value="" type="text"></div>
+         </div>
+      </div>
+      <br>
+      <table class="table">
+         <thead>
+            <tr>
+               <th scope="col">User Id</th>
+               <th scope="col">First Name</th>
+               <th scope="col">Last Name</th>
+               <th scope="col">Employee Id</th>
+               <th></th>
+
+            </tr>
+         </thead>
+         <tbody>
+            <tr *ngFor="let item of listUser ; trackBy: trackUser">
+               <td>{{item.userId}}</td>
+               <td>{{item.fstName}}</td>
+               <td>{{item.lstName}}</td>
+               <td>{{item.empId}}</td>
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success"
+                     (click)="selectUser(item.userId)">Select</button></td>
+            </tr>
+         </tbody>
+      </table>
+
+   </div>
+</ng-template>
