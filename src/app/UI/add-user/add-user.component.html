@@ -1,107 +1,131 @@
 <h3 class="text-warning">Add User</h3>
 <hr>
 <div class="row">
-    <div class="col-xl-12">
-  <ul class="nav nav-pills ">
-      <li class="nav-item">
-            <h4><a routerLink="/add-user" routerLinkActive="active"  >Add User</a></h4>
-          </li>
-          <li class="nav-item" style="padding-left:200px">
-              <h5><a routerLink="/add-project"  class="text-secondary" >Add Project</a></h5>
-            </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/add-task" class="text-secondary"  >Add Task</a></h5>
-    </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/view-task" class="text-secondary"  >View Task</a></h5>
-    </li>
-    </ul>
-  </div>
-  </div>
-  <form  #myForm="ngForm"  class="well form-horizontal"  >
-    <table class="table table-striped">
-        <tbody>
-           <tr>
-              <td colspan="1">
-                
-                    <fieldset>
-                         <div class="form-group" *ngIf="IsEdit">
-                               <label class="col-md-4 control-label">User Id:</label>
-                               <div class="col-md-8 inputGroupContainer">
-                                  <div class="input-group"><input id="userId" [(ngModel)]="userId"  name="userId"  class="form-control" readonly type="number"></div>
-                               </div>
-                            </div>
-    
-                       <div class="form-group">
-                          <label class="col-md-4 control-label">First Name:</label>
-                          <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="firstName" [(ngModel)]="firstName"  name="firstName" placeholder="First Name"  required="true" value="" class="form-control" maxlength="100" type="text"></div>
-                          </div>
-                       </div>
-                       <div class="form-group">
-                          <label class="col-md-4 control-label">Last Name:</label>
-                          <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="lastName" [(ngModel)]="lastName"  name="lastName" placeholder="last Name" required="true" value="" class="form-control" maxlength="100"  type="text"></div>
-                          </div>
-                       </div>
-                       <div class="form-group">
-                          <label class="col-md-4 control-label">Employee Id:</label>
-                          <div class="col-md-8 inputGroupContainer">
-                             <div class="input-group"><input id="empId" [(ngModel)]="empId"  name="empId" placeholder="Employee Id" required="true" value="" class="form-control" maxlength="30"  type="text"></div>
-                          </div>
-                       </div>
-                                       
-                  <div style="padding:20px" *ngIf="!isEdit" > <button class="btn btn-primary" (click)="addUser(myForm) " (blur)="loadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
-                  <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="updateUser() " (blur)="loadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info" (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
-                    </fieldset>
-               
-              </td>
-             
-           </tr>
-        </tbody>
-     </table>
-     <hr>
-    <div class="row">
-       <div class="col-md-6">     
-          <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="searchFilter(txtSearch.value)"  placeholder="Search..." class="form-control"  value="" type="text"></div>
+   <div class="col-xl-12">
+      <ul class="nav nav-pills ">
+            <li class="nav-item" >
+                  <h5><a routerLink="/add-project" class="text-secondary">Add Project</a></h5>
+               </li>
+               <li class="nav-item" style="padding-left:200px">
+                  <h5><a routerLink="/add-task" class="text-secondary">Add Task</a></h5>
+               </li>
+               <li class="nav-item" style="padding-left:200px">
+                  <h4><a routerLink="/add-user" routerLinkActive="active">Add User</a></h4>
+               </li>
+               <li class="nav-item" style="padding-left:200px">
+                  <h5><a routerLink="/view-task" class="text-secondary">View Task</a></h5>
+               </li>
+      </ul>
+   </div>
+</div>
+<form #myForm="ngForm" class="well form-horizontal">
+   <table class="table table-striped">
+      <tbody>
+         <tr>
+            <td colspan="1">
+
+               <fieldset>
+                  <div class="form-group" *ngIf="IsEdit">
+                     <label class="col-md-4 control-label">User Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="userId" [(ngModel)]="userId" name="userId" class="form-control"
+                              readonly type="number"></div>
+                     </div>
+                  </div>
+
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">First Name:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="firstName" [(ngModel)]="firstName" name="firstName"
+                              placeholder="First Name" required="true" value="" class="form-control" maxlength="100"
+                              type="text"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Last Name:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="lastName" [(ngModel)]="lastName" name="lastName"
+                              placeholder="last Name" required="true" value="" class="form-control" maxlength="100"
+                              type="text"></div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-md-4 control-label">Employee Id:</label>
+                     <div class="col-md-8 inputGroupContainer">
+                        <div class="input-group"><input id="empId" [(ngModel)]="empId" name="empId" placeholder="Employee Id"
+                              required="true" value="" class="form-control" maxlength="30" type="text"></div>
+                     </div>
+                  </div>
+
+                  <div style="padding:20px" *ngIf="!isEdit"> <button class="btn btn-primary" (click)="addUser(myForm) "
+                        (blur)="loadUsersGrid()" type="submit">Add User</button> &nbsp; &nbsp;<button class="btn btn-info"
+                        (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
+                  <div style="padding:20px" *ngIf="isEdit"> <button class="btn btn-primary" (click)="updateUser() "
+                        (blur)="loadUsersGrid()" type="submit">Update User</button> &nbsp; &nbsp;<button class="btn btn-info"
+                        (click)="resetUserForm(myForm)" type="button">Reset</button> </div>
+               </fieldset>
+
+            </td>
+
+         </tr>
+      </tbody>
+   </table>
+   <hr>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="input-group"><input id="txtSearch" name="txtSearch" #txtSearch (keyup)="searchFilter(txtSearch.value)"
+               placeholder="Search..." class="form-control" value="" type="text"></div>
       </div>
       <div class="col-md-2">
-          <label class="control-label" style="padding-right:10px;">Sort By: </label>  
-          <button class="btn btn-secondary"  (click)="sortByFirstName()"  style="padding:6px;">First Name</button> 
-       </div>
-       <div class="col-md-2">
-          <button class="btn btn-secondary"  (click)="sortByLastName()" style="padding:6px;" >Last Name</button>  
-       </div>
-       <div class="col-md-2" >
-          <button class="btn btn-secondary" (click)="sortById()" >Id</button> 
-       </div>
+         <label class="control-label" style="padding-right:10px;">Sort By: </label>
+         <button class="btn btn-secondary" (click)="sortByFirstName()" style="padding:6px;">First Name</button>
       </div>
-    
-    <hr>
-      <table class="table" >
-          <thead>
-              <tr>
-                <th scope="col">User Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Employee Id</th> 
-                <th></th>
-                <th></th>
-    
-              </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor ="let item of list ; trackBy: identifyUser" >         
-                  <td>{{item.userId}}</td>
-                  <td>{{item.fstName}}</td>
-                  <td>{{item.lstName}}</td>
-                  <td>{{item.empId}}</td>
-                 
-                  <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="bindEditUser(item)"  >Edit</button></td>                          
-                  <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteUser(item.userId)" (blur)="loadUsersGrid()" >Delete</button></td>
-               
-                </tr>
-              </tbody>
-            </table>
-    
-        </form>
+      <div class="col-md-2">
+         <button class="btn btn-secondary" (click)="sortByLastName()" style="padding:6px;">Last Name</button>
+      </div>
+      <div class="col-md-2">
+         <button class="btn btn-secondary" (click)="sortById()">Id</button>
+      </div>
+   </div>
+
+   <hr>
+
+   <div class="container-fluid" *ngFor="let item of list ; trackBy: identifyUser">
+         <br>
+         <ul class="row list-group col-md-8 float-left">
+   
+            User:
+   
+            <li class="list-group-item  list-group-item-secondary border-0 col-lg-10 col-md-8 ">
+               <div class="float-left">First Name: {{item.fstName}}</div>
+   
+               <div class="float-right">Last Name: {{item.lstName}}</div>
+            </li>
+            <li class="list-group-item  list-group-item-secondary border-0 col-lg-10 col-md-8">
+               <div class="float-left">User ID: {{item.userId}}</div>
+   
+               <div class="float-right">Employee ID: {{item.empId}}</div>
+            </li>
+         </ul>
+        
+   
+         <ul class="list-group col-md-2 float-left">
+            <br>
+            <li class="list-group-item col-lg-12 col-md-8 border-0">
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="bindEditUser(item)">Edit</button></td>
+   
+   
+            </li>
+            <li class="list-group-item col-lg-12 col-md-8 border-0">
+               <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-danger" (click)="deleteUser(item.userId)"
+                  (blur)="loadUsersGrid()">Delete</button></td>
+   
+            </li>
+            <br>
+   
+         </ul>
+   
+      </div>
+   
+   
+</form>

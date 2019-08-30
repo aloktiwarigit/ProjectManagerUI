@@ -51,8 +51,8 @@ export class AddUserComponent implements OnInit {
   }
   sortById(): void {
     this._service.getAllUsers().subscribe(data => this.list = data.sort((a, b) => {
-      if (a.userId < b.userId) return -1;
-      else if (a.userId > b.userId) return 1;
+      if (a.empId < b.empId) return -1;
+      else if (a.empId > b.empId) return 1;
       else return 0;
     }));
 

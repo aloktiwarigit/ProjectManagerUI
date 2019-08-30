@@ -31,6 +31,7 @@ export class AddTaskComponent implements OnInit {
   public taskStatus: string;
   public userId: number;
   public projectId: number;
+  public parentDesc:string;
   public task: any;
   public taskId: number;
   public taskDesc: string;
@@ -85,6 +86,7 @@ export class AddTaskComponent implements OnInit {
         parentId: this.parentId,
         taskDescription: this.taskDesc,
         startDt: this.startDate,
+        parentDesc: this.parentDesc,
         endDt: this.endDate,
         priority: this.priority,
         taskStatus: '',
@@ -93,7 +95,7 @@ export class AddTaskComponent implements OnInit {
       };
       if (Taskdetails.priority == undefined)
         Taskdetails.priority = 15;
-      if (Taskdetails.taskDescription == undefined || Taskdetails.parentId == undefined || Taskdetails.startDt == undefined || Taskdetails.endDt == undefined
+      if (Taskdetails.taskDescription == undefined  || Taskdetails.startDt == undefined || Taskdetails.endDt == undefined
         || Taskdetails.projectId == undefined || Taskdetails.userId == undefined
         || Taskdetails.taskDescription.length == 0) {
         this.isformValid = false;

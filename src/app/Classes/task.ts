@@ -6,6 +6,7 @@ export class Task {
     priority : number;
     taskStatus:string;
     taskDescription:string;
+    parentDesc:string;
     startDt :string;
     endDt: string;
     taskId:number;

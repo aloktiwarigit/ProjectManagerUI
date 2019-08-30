@@ -3,14 +3,14 @@
 <div class="row">
    <div class="col-xl-12">
       <ul class="nav nav-pills ">
-         <li class="nav-item">
-            <h5><a routerLink="/add-user" class="text-secondary">Add User</a></h5>
-         </li>
-         <li class="nav-item" style="padding-left:200px">
+         <li class="nav-item" >
             <h4><a routerLink="/add-project" routerLinkActive="active">Add Project</a></h4>
          </li>
          <li class="nav-item" style="padding-left:200px">
             <h5><a routerLink="/add-task" class="text-secondary">Add Task</a></h5>
+         </li>
+         <li class="nav-item" style="padding-left:200px">
+            <h5><a routerLink="/add-user" class="text-secondary">Add User</a></h5>
          </li>
          <li class="nav-item" style="padding-left:200px">
             <h5><a routerLink="/view-task" class="text-secondary">View Task</a></h5>
@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="form-group">
-                     <label class="col-md-4 control-label">Project Title:</label>
+                     <label class="col-md-4 control-label">Project:</label>
                      <div class="col-md-8 inputGroupContainer">
                         <div class="input-group"><input id="projDesc" [(ngModel)]="projDesc" name="projDesc" class="form-control"
                               placeholder="Project Title" type="text"></div>
@@ -77,7 +77,7 @@
                      </div>
                   </div>
                   <div class="form-group">
-                     <label class="col-md-4 control-label">Manager Id:</label>
+                     <label class="col-md-4 control-label">Manager:</label>
                      <div class="col-md-8 inputGroupContainer">
                         <div class="input-group">
                            <input id="managerId" [(ngModel)]="managerId" name="managerId" class="form-control" required="true"
@@ -100,9 +100,11 @@
    </table>
    <hr>
    <div class="row">
-      <div class="col-md-7">
-
+      <div class="col-md-6">
+         <div class="input-group"><input id="txtSearchProject" name="txtSearchProject" #txtSearchProject (keyup)="searchProjectFilter(txtSearchProject.value)"
+               placeholder="Search..." class="form-control" value="" type="text"></div>
       </div>
+
       <div class="col-md-2">
          <label class="control-label" style="padding-right:10px;">Sort By: </label>
          <button class="btn btn-secondary" (click)="sortByStartDate()">Start Date</button>
@@ -110,39 +112,63 @@
       <div class="col-md-1">
          <button class="btn btn-secondary" (click)="sortByEndDate()">End Date</button>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
          <button class="btn btn-secondary" (click)="sortByPriority()">Priority</button>
+      </div>
+      <div class="col-md-1">
+         <button class="btn btn-secondary" (click)="sortByCompletion()">Completed</button>
       </div>
    </div>
    <br>
 
-   <table class="table">
-      <thead>
-         <tr>
-            <th scope="col">Project Id</th>
-            <th scope="col">Project Desc</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Manager UserId</th>
-            <th></th>
-            <th></th>
-         </tr>
-      </thead>
-      <tbody>
-         <tr *ngFor="let item of listProjects ; trackBy: trackProject">
-            <td>{{item.projId}}</td>
-            <td>{{item.projectDesc}}</td>
-            <td>{{item.priority}}</td>
-            <td>{{item.startDt |date:'MM-dd-yyyy'}}</td>
-            <td>{{item.endDt | date:'MM-dd-yyyy' }}</td>
-            <td>{{item.managerId }}</td>
+   <div class="container-fluid" *ngFor="let item of listProjects ; trackBy: trackProject">
+      <br>
+      <ul class="row list-group col-md-6 float-left">
+
+         Project:
+
+         <li class="list-group-item  list-group-item-secondary border-0 col-lg-10 col-md-8 ">
+            <div class="float-left">No. Of Task: {{item.noOfTask}}</div>
+
+            <div class="float-right">Completed: {{item.completed}}</div>
+         </li>
+         <li class="list-group-item  list-group-item-secondary border-0 col-lg-10 col-md-8">
+            <div class="float-left">Start Date:{{item.startDt |date:'MM-dd-yyyy'}}</div>
+
+            <div class="float-right">End Date: {{item.endDt | date:'MM-dd-yyyy' }}</div>
+         </li>
+      </ul>
+      <ul class=" row list-group col-md-2  float-left">
+         <br>
+         <li class="list-group-item  list-group-item-secondary border-0 col-lg-12 col-md-8">
+
+            Priority
+         </li>
+         <li class="list-group-item  list-group-item-secondary border-0 col-lg-12 col-md-8">
+            {{item.priority}}
+         </li>
+      </ul>
+
+      <ul class="list-group col-md-2 float-left">
+         <br>
+         <li class="list-group-item col-lg-12 col-md-8 border-0">
             <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-secondary" (click)="editProjBind(item)">Update</button></td>
-            <td style="padding-left:0;padding-right:0;margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.projId)"
-                  (blur)="loadProjectGrid()">Delete</button></td>
-         </tr>
-      </tbody>
-   </table>
+
+
+         </li>
+         <li class="list-group-item col-lg-12 col-md-8 border-0">
+            <td style="padding-left:0;padding-right:0; margin: 0%"><button class="btn btn-danger" (click)="deleteProj(item.projId)"
+                  (blur)="loadProjectGrid()">Suspend</button></td>
+
+         </li>
+         <br>
+
+      </ul>
+
+   </div>
+
+
+
 </form>
 <ng-template #tmpManager>
    <div class="modal-header">

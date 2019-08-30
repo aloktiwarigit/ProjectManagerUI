@@ -7,4 +7,6 @@ export class Project {
     projectDesc:string;
     startDt:string;
     endDt:string;
+    completed:number;
+    noOfTask:number;
 }

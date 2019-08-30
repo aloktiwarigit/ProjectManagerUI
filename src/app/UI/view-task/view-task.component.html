@@ -1,87 +1,142 @@
 <h3 class="text-warning">View Task</h3>
 <hr>
 <div class="row">
-    <div class="col-xl-12">
-  <ul class="nav nav-pills ">
+  <div class="col-xl-12">
+    <ul class="nav nav-pills ">
       <li class="nav-item">
-          <h5><a routerLink="/add-user" class="text-secondary" >Add User</a></h5>
-        </li>
-        <li class="nav-item" style="padding-left:200px">
-            <h5><a routerLink="/add-project" class="text-secondary"  >Add Project</a></h5>
-          </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h5><a routerLink="/add-task" class="text-secondary" >Add Task</a></h5>
-    </li>
-    <li class="nav-item" style="padding-left:200px">
-      <h4><a routerLink="/view-task" routerLinkActive="active" >View Task</a></h4>
-    </li>
+        <h5><a routerLink="/add-project" class="text-secondary">Add Project</a></h5>
+      </li>
+      <li class="nav-item" style="padding-left:200px">
+        <h5><a routerLink="/add-task" class="text-secondary">Add Task</a></h5>
+      </li>
+      <li class="nav-item" style="padding-left:200px">
+        <h5><a routerLink="/add-user" class="text-secondary">Add User</a></h5>
+      </li>
+      <li class="nav-item" style="padding-left:200px">
+        <h4><a routerLink="/view-task" routerLinkActive="active">View Task</a></h4>
+      </li>
     </ul>
   </div>
-  
+
+</div>
+
+<hr>
+<div class="row">
+  <div class="col-md-2">
+    <b>Project:</b>
+  </div>
+  <div class="col-md-4">
+
+    <input id="ProjectId" [(ngModel)]="projectId" name="ProjectId" class="form-control" required="true" disabled type="number">
+  </div>
+  <div> <button style="float:right; padding:3px;" class="btn btn-secondary" type="button" (click)="openProjectModal(tmpProject)">Search</button>
   </div>
 
-  <hr>
-<div class="row">
-    <div class="col-md-3">
-                     
-     <input id="txtTaskSearch"  #txtTaskSearch (keyup)="taskViewSearchFilter(txtTaskSearch.value)" placeholder="Search..."  name="txtTaskSearch"  class="form-control" required="true"   type="text" >                                    
-     </div>
-     <div class="col-md-1">        
-            <label class="control-label" style="padding-right:10px;">Sort Task By: </label>  
-            
-         </div>
-          <div class="col-md-2">        
-         
-            <button class="btn btn-secondary"  (click)="sortByStartDate()"  >Start Date</button> 
-         </div>
-         <div class="col-md-2">
-            <button class="btn btn-secondary"  (click)="sortByEndDate()" >End Date</button>  
-         </div>
-         <div class="col-md-2" >
-            <button class="btn btn-secondary" (click)="sortByPriority()" >Priority</button> 
-         </div>
-         <div class="col-md-2" >
-                <button class="btn btn-secondary" (click)="sortByTaskCompleted()" >Completed</button> 
-             </div>
-        </div>
-  <br>  
+  <div class="col-sm-1">
+    <label class="control-label" style="padding-right:10px;">Sort Task By: </label>
 
-  <table class="table" >
+  </div>
+  <div class="col-sm-1">
+
+    <button class="btn btn-secondary" (click)="sortByStartDate()">Start Date</button>
+  </div>
+  <div class="col-sm-1">
+    <button class="btn btn-secondary" (click)="sortByEndDate()">End Date</button>
+  </div>
+  <div class="col-sm-1">
+    <button class="btn btn-secondary" (click)="sortByPriority()">Priority</button>
+  </div>
+  <div class="col-sm-1">
+    <button class="btn btn-secondary" (click)="sortByTaskCompleted()">Completed</button>
+  </div>
+</div>
+<br>
+
+<div class="container" *ngFor="let item of list ; trackBy: trackTask">
+  <div class="row col-sm-9  bg-primary text-white">
+    <div class="col-sm">
+     <b> Task</b>
+    </div>
+    <div class="col-sm">
+      <b>Parent</b>
+    </div>
+    <div class="col-sm">
+      <b>Priority</b>
+    </div>
+    <div class="col-sm">
+      <b>Start Date</b>
+    </div>
+    <div class="col-sm">
+     <b> End Date</b>
+    </div>
+    
+
+  </div>
+
+  <div class="row col-sm-11 bg-light text-info">
+    <div class="col-sm">
+      {{item.taskDescription}}
+    </div>
+    <div class="col-sm">
+        {{item.parentDesc ? item.parentDesc : "Parent Not Found"}}
+     
+    </div>
+    <div class="col-sm">
+      {{item.priority}}
+    </div>
+    <div class="col-sm">
+      {{item.startDt |date:'MM-dd-yyyy'}}
+    </div>
+    <div class="col-sm">
+      {{item.endDt | date:'MM-dd-yyyy' }}
+    </div>
+    
+    <div class="col-md-auto">
+      <a routerLink="/edit-task/{{item.taskId}}"><button class="btn btn-secondary" style="padding:3px" [disabled]=" (item.taskStatus=='1')">Edit</button></a>
+    </div>
+    <div class="col-md-auto">
+      <button [disabled]=" (item.taskStatus =='1')" style="padding:3px" (click)="endTaskFlagUpdate(item)" (blur)="loadGridTask()"
+        class="btn btn-danger">EndTask</button>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #tmpProject>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left text-warning">Project list</h4>
+    <button class="btn btn-secondary close pull-right" type="button" (click)="projectmodalRef.hide()" aria-label="close"></button>
+    <span aria-hidden="true">&times;</span>
+  </div>
+  <div class="modal-body">
+    <h6 class="text text-success" *ngIf="isProjectSelected">Project is selected successfully.</h6>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group"><input id="txtSearchProject" name="txtSearchProject" #txtSearchProject (keyup)="searchProjectFilter(txtSearchProject.value)"
+            placeholder="Search..." class="form-control" value="" type="text"></div>
+      </div>
+    </div>
+    <br>
+    <table class="table">
       <thead>
-          <tr>
-            <th scope="col">TaskId</th>
-            <th scope="col">Task</th>
-            <th scope="col">ParentTask</th>
-            <th scope="col">ProjectId</th>
-            <th scope="col">Priority</th>
-            <th scope="col">Start</th>
-            <th scope="col">End</th>
-            <th scope="col">UserId</th>
-            <th></th>     
-            <th></th>
-            <th></th>
-            <th>isTaskCompleted</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor ="let item of list ; trackBy: trackTask" >         
-              <td>{{item.taskId}}</td>
-              <td>{{item.taskDesc}}</td>
-              <td>{{item.parentId}}</td>
-              <td>{{item.projectId}}</td>
-              <td>{{item.priority}}</td>
-              <td>{{item.startDate |date:'MM-dd-yyyy'}}</td>
-              <td>{{item.endDate | date:'MM-dd-yyyy' }}</td>
-              <td>{{item.userId}}</td>
-              <td style="padding-left:0;padding-right:0;"><a routerLink="/update-task/{{item.TaskId}}"><button class="btn btn-secondary" style="padding:3px" [disabled]=" (item.TaskStatus=='1')"  >Edit</button></a></td> 
-   
-              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="endTaskFlagchange(item)" (blur)="loadGridTask()"  class="btn btn-warning">EndTask</button></td>             
-              <td style="padding-left:0;padding-right:0"><button [disabled]=" (item.TaskStatus =='1')" style="padding:3px" (click)="deleteTask(item.TaskId)" (blur)="loadGridTask()"   class="btn btn-danger">Delete</button></td>
-              <td>{{(item.TaskStatus=='1')? 'Yes':'No'}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <tr>
+          <th scope="col">ProjectId</th>
+          <th scope="col">ProjectDesc</th>
+          <th scope="col">Priority</th>
+          <th scope="col">ManagerId</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listProject ; trackBy: trackProject">
+          <td>{{item.projId}}</td>
+          <td>{{item.projectDesc}}</td>
+          <td>{{item.priority}}</td>
+          <td>{{item.managerId }}</td>
+          <td style="padding-left:0;padding-right:0; margin: 0%"><button style="padding:0px;" class="btn btn-success"
+              (click)="selectProject(item.projId)">Select</button></td>
+        </tr>
+      </tbody>
+    </table>
 
-
-        
-
+  </div>

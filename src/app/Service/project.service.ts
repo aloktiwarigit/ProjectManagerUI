@@ -79,7 +79,7 @@ editUser(UserId :number, Item: User):Observable<any>
   }
   getTask(TaskId :number) : Observable<Task>
   {
-    return  this._http.get<Task>(this._apiUrl+"Task/getTask"+TaskId).pipe(map(x=>x));
+    return  this._http.get<Task>(this._apiUrl+"Task/getTask/"+TaskId).pipe(map(x=>x));
 
   }
   addTask(Item:Task):Observable<any>
@@ -89,15 +89,20 @@ editUser(UserId :number, Item: User):Observable<any>
   }
   editTask(TaskId :number, Item: Task):Observable<any>
   {
-    return  this._http.put(this._apiUrl+"Task/addTask"+TaskId,Item).pipe(map(x=>x));
+    return  this._http.put(this._apiUrl+"Task/updateTask/"+TaskId,Item).pipe(map(x=>x));
+  }
+
+  getProjectTasks(projectID:number)
+  {
+    return  this._http.get<Task[]>(this._apiUrl+"Project/getProjectTasks/"+projectID).pipe(map(x=>x));   
   }
   
-  endTaskUpdateFlag(Item: Task):Observable<any>
+  endTaskFlagUpdate(Item: Task):Observable<any>
   {
     return  this._http.put(this._apiUrl+"Task/endTask",Item).pipe(map(x=>x));
   }
   deleteTask(TaskId :number):Observable<any>
   {
-    return  this._http.delete(this._apiUrl+"Task/deleteTask"+TaskId).pipe(map(x=>x));
+    return  this._http.delete(this._apiUrl+"Task/deleteTask/"+TaskId).pipe(map(x=>x));
   }
 }
