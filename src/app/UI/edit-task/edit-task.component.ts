@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Task } from 'src/app/Classes/task';
 import { Project } from 'src/app/Classes/project';
-import { ParentTask } from 'src/app/Classes/parent-task';
+import { ParentTask } from "src/app/Classes/parent-task";
 import { User } from 'src/app/Classes/user';
 import { ProjectService } from 'src/app/Service/project.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss']
+  styleUrls: []
 })
 export class EditTaskComponent implements OnInit {
   projectmodalRef: BsModalRef;

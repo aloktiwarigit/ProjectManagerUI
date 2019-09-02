@@ -62,6 +62,7 @@ export class AddProjectComponent implements OnInit {
     this.isEdit = false;
     window.scroll(0, 0);
   }
+  
   openModal(tmpManager: TemplateRef<any>): void {
     this.modalRef = this.modalServ.show(tmpManager);
   }
@@ -77,14 +78,15 @@ export class AddProjectComponent implements OnInit {
     return item ? item.ProjectId : undefined;
 
   }
-  searchFilter(searchDetail: string): void {
-    if (searchDetail != undefined && searchDetail.length != 0) {
-      this._service.getAllUsers().subscribe(data => this.listManager = data.filter(item => item.fstName.toUpperCase() === searchDetail.toUpperCase() || item.lstName.toUpperCase() === searchDetail.toUpperCase()
-        || item.empId.toUpperCase() === searchDetail.toUpperCase() || item.userId.toString() === searchDetail));
-
-    }
+  searchProjectFilter(searchText: string): void {
+     if(searchText!=undefined && searchText.length!=0)
+    {
+  this._service.getAllProjects().subscribe(data=>this.listProjects=data.filter(item=>this.datepipe.transform(item.startDt, 'yyyy-MM-dd')===this.datepipe.transform(searchText, 'yyyy-MM-dd')|| this.datepipe.transform(item.endDt, 'yyyy-MM-dd')===this.datepipe.transform(searchText, 'yyyy-MM-dd')
+  || item.projId.toString()=== searchText|| item.projectDesc.toUpperCase()==searchText.toUpperCase()
+  || item.priority.toString()=== searchText || item.managerId.toString()=== searchText));
+}
     else {
-      this._service.getAllUsers().subscribe(data => this.listManager = data);
+      this._service.getAllProjects().subscribe(data => this.listProjects = data);
     }
 
   }
@@ -101,38 +103,38 @@ export class AddProjectComponent implements OnInit {
 
 
   sortByStartDate(): void {
-    this._service.getAllProjects().subscribe(data => this.listProjects = data.sort((a, b) => {
+    this.listProjects.sort((a, b) => {
       if (a.startDt < b.startDt) return -1;
       else if (a.startDt > b.startDt) return 1;
       else return 0;
-    }));
+    });
 
   }
 
   sortByPriority(): void {
-    this._service.getAllProjects().subscribe(data => this.listProjects = data.sort((a, b) => {
+     this.listProjects.sort((a, b) => {
       if (a.priority < b.priority) return -1;
       else if (a.priority > b.priority) return 1;
       else return 0;
-    }));
+    });
 
   }
 
   sortByEndDate(): void {
-    this._service.getAllProjects().subscribe(data => this.listProjects = data.sort((a, b) => {
+     this.listProjects.sort((a, b) => {
       if (a.endDt < b.endDt) return -1;
       else if (a.endDt > b.endDt) return 1;
       else return 0;
-    }));
+    });
 
   }
 
   sortByCompletion(): void {
-    this._service.getAllProjects().subscribe(data => this.listProjects = data.sort((a, b) => {
+     this.listProjects.sort((a, b) => {
       if (a.completed < b.completed) return -1;
       else if (a.completed > b.completed) return 1;
       else return 0;
-    }));
+    });
   }
 
 
@@ -153,7 +155,6 @@ export class AddProjectComponent implements OnInit {
 
   selectManger(managerId: number): void {
     this.managerId = managerId;
-    console.log("Updating Manager ID" + managerId);
     this.isManagerSelected = true;
     this.modalRef.hide();
   }
@@ -203,15 +204,14 @@ export class AddProjectComponent implements OnInit {
       this.isformValid = true;
       this.isAddedSuccessFully = false;
       this.isStartDateGreater = false;
-      console.log("Date Check Failed");
+      
     }
     else {
       this.isformValid = true;
       this.isStartDateGreater = true;
-      console.log("calling add project");
       this._service.addProject(projDtls).subscribe(data => this.insertProject = data);
       this.isAddedSuccessFully = true;
-
+      this.loadProjectGrid();
       form.reset();
 
     }
@@ -252,7 +252,9 @@ export class AddProjectComponent implements OnInit {
       this.isUpdatedSuccessFully = true;
       this.isDeletedSuccessFully = false;
       this.isAddedSuccessFully = false;
+      this.loadProjectGrid();
     }
+
     window.scroll(0, 0);
   }
 
@@ -264,6 +266,7 @@ export class AddProjectComponent implements OnInit {
     this.isAddedSuccessFully = false;
     this.isformValid = true;
     window.scroll(0, 0);
+    this.loadProjectGrid();
   }
   loadProjectGrid(): void {
 

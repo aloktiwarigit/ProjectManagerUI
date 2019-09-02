@@ -93,10 +93,11 @@ export class AddUserComponent implements OnInit {
     else {
       this.isFormValid = true;
       this._service.addUser(Userdetails).subscribe(data => this.insertResult = data);
+      this.loadUsersGrid();
       this.isAddedSuccessFully = true;
 
       form.reset();
-      this.loadUsersGrid();
+      
 
     }
     window.scroll(0, 0);
@@ -119,10 +120,11 @@ export class AddUserComponent implements OnInit {
     else {
       this.isFormValid = true;
       this._service.editUser(Userdetails.userId, Userdetails).subscribe(data => updateResult = data);
+      this.loadUsersGrid();
       this.isUpdatedSuccessFully = true;
       this.isDeletedSuccessFully = false;
       this.isAddedSuccessFully = false;
-      this.loadUsersGrid();
+      
     }
     window.scroll(0, 0);
   }
@@ -170,12 +172,13 @@ export class AddUserComponent implements OnInit {
   deleteUser(UserId: number): void {
     let DeleteResult: any;
     this._service.deleteUser(UserId).subscribe(data => DeleteResult = data);
+    this.loadUsersGrid();
     this.isDeletedSuccessFully = true;
     this.isUpdatedSuccessFully = false;
     this.isAddedSuccessFully = false;
     this.isFormValid = true;
     window.scroll(0, 0);
-    this.loadUsersGrid();
+    
   }
 
 

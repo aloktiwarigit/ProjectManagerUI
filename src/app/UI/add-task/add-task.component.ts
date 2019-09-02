@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, NgForm } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/Modal';
 import { Project } from 'src/app/Classes/project';
-import { ParentTask } from 'src/app/Classes/parent-task';
+import { ParentTask } from "src/app/Classes/parent-task";
 import { User } from 'src/app/Classes/user';
 import { ProjectService } from 'src/app/Service/project.service';
 import { DatePipe } from '@angular/common';

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Task } from '../Classes/task';
 import {User} from '../Classes/user';
 import {Project} from '../Classes/project';
-import { ParentTask } from '../Classes/parent-task';
+import { ParentTask } from "../Classes/parent-task";
 
 @NgModule({
   providers: [ HttpClient]

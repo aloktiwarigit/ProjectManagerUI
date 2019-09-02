@@ -55,9 +55,7 @@ export class ViewTaskComponent implements OnInit {
 
     alert("Task has been marked as End..!");
   }
-  loadGridTask(): void {
-    this._service.getAllTask().subscribe(data => this.list = data);
-  }
+  
   trackTask(index: number, item: any) {
 
     return item ? item.TaskID : undefined;
